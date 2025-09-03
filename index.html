@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MILAH.NET</title>
+  <meta name="description" content="Contoh web sederhana menggunakan HTML, CSS, dan sedikit JavaScript." />
+  <style>
+    :root {
+      --bg: #0f172a;      /* slate-900 */
+      --card: #111827;    /* gray-900 */
+      --muted: #94a3b8;   /* slate-400 */
+      --text: #e5e7eb;    /* gray-200 */
+      --brand: #22d3ee;   /* cyan-400 */
+      --brand-strong: #06b6d4; /* cyan-500 */
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; background: linear-gradient(180deg, #0b1220, var(--bg)); color: var(--text); }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* Layout */
+    .container { width: min(1100px, 92%); margin-inline: auto; }
+    header { position: sticky; top: 0; backdrop-filter: blur(10px); background: rgba(15, 23, 42, 0.6); border-bottom: 1px solid rgba(148, 163, 184, 0.15); z-index: 20; }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .3px; }
+    .brand .logo { width: 28px; height: 28px; border-radius: 8px; background: radial-gradient(circle at 30% 30%, var(--brand), var(--brand-strong)); box-shadow: 0 0 20px rgba(34, 211, 238, .55); }
+    .nav a.link { padding: 8px 12px; border-radius: 10px; color: var(--muted); }
+    .nav a.link:hover { color: white; background: rgba(148,163,184,0.12); }
+
+    /* Hero */
+    .hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: center; padding: 64px 0 48px; }
+    .hero h1 { font-size: clamp(28px, 4vw, 44px); line-height: 1.1; margin: 0 0 16px; }
+    .hero p { color: var(--muted); margin: 0 0 24px; }
+    .cta { display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: 12px; background: linear-gradient(135deg, var(--brand), var(--brand-strong)); color: #05141a; font-weight: 700; border: none; cursor: pointer; box-shadow: 0 8px 24px rgba(6, 182, 212, .25); }
+    .cta:active { transform: translateY(1px); }
+    .hero .card { background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); border: 1px solid rgba(148,163,184,.15); border-radius: 16px; padding: 18px; box-shadow: inset 0 1px 0 rgba(255,255,255,.04); }
+    .stat { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+    .pill { padding: 8px 10px; border-radius: 999px; background: rgba(34,211,238,.12); color: #9ee9f4; font-size: 12px; display: inline-block; }
+
+    /* Features */
+    .section { padding: 48px 0; }
+    .section h2 { font-size: clamp(22px, 3vw, 32px); margin: 0 0 12px; }
+    .section p.lead { color: var(--muted); margin: 0 0 24px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .feature { background: var(--card); border: 1px solid rgba(148,163,184,.15); border-radius: 16px; padding: 18px; transition: transform .2s ease, box-shadow .2s ease; }
+    .feature:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,.25); }
+    .feature h3 { margin: 6px 0 8px; font-size: 18px; }
+    .feature p { color: var(--muted); margin: 0; font-size: 14px; }
+
+    /* Contact */
+    form { background: var(--card); border: 1px solid rgba(148,163,184,.15); border-radius: 16px; padding: 18px; display: grid; gap: 12px; }
+    label { font-size: 14px; color: var(--muted); }
+    input, textarea { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(148,163,184,.25); background: #0b1220; color: var(--text); }
+    textarea { min-height: 100px; resize: vertical; }
+    .btn { padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(148,163,184,.25); background: #0b1220; color: var(--text); cursor: pointer; }
+    .btn:hover { background: #0e1626; }
+
+    footer { padding: 28px 0 40px; color: var(--muted); border-top: 1px solid rgba(148,163,184,.15); text-align: center; }
+
+    /* Utilities */
+    .hidden { display: none; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      .nav .links { display: none; }
+      .menu-btn { display: inline-flex; }
+    }
+    @media (min-width: 901px) {
+      .menu-btn { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#">
+        <span class="logo" aria-hidden="true"></span>
+        <span>Milah<span style="color: var(--brand)">.net</span></span>
+      </a>
+      <nav class="links" aria-label="Navigasi utama">
+        <a class="link" href="#beranda">Beranda</a>
+        <a class="link" href="#fitur">Fitur</a>
+        <a class="link" href="#kontak">Kontak</a>
+      </nav>
+      <button class="menu-btn btn" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="container hidden" role="dialog" aria-label="Menu seluler">
+      <nav style="display:flex; gap:10px; padding:10px 0;">
+        <a class="link" href="#beranda">Beranda</a>
+        <a class="link" href="#fitur">Fitur</a>
+        <a class="link" href="#kontak">Kontak</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main id="beranda" class="container hero">
+    <div>
+      <span class="pill">Milah.Net</span>
+      <h1>Pasang Wifi Anda Segera <span style="color:var(--brand)">cepat</span> dan <span style="color:var(--brand)">modern</span></h1>
+      <p>Menyediakan berbagai macam kecepatan internet</p>
+      <button class="cta" onclick="document.getElementById('kontak').scrollIntoView({behavior:'smooth'})">
+         Mulai Sekarang
+      </button>
+    </div>
+    <div class="card">
+      <img src="f50d3350-897c-423d-bf6b-eb7ba0825889-removebg-preview.png" alt="Wifi seluler.jpg">
+      <div class="stat">
+        <div>
+          <div style="font-weight:800; font-size:20px;">15Mbps</div>
+          <div style="color:var(--muted); font-size:12px;">150 Ribu</div>
+        </div>
+        <div>
+          <div style="font-weight:800; font-size:20px;">25Mbps</div>
+          <div style="color:var(--muted); font-size:12px;">200 Ribu</div>
+        </div>
+        <div>
+          <div style="font-weight:800; font-size:20px;">30Mbps</div>
+          <div style="color:var(--muted); font-size:12px;">250 Ribu</div>
+        </div>
+      </div>
+      <p style="color:var(--muted); font-size:12px; margin-top:12px;">*HARGA DIATAS DAPAT BERBEDA SESUAI KEBUTUHAN </p>
+    </div>
+  </main>
+
+  <!-- Features -->
+  <section id="fitur" class="container section">
+    <h2>Fitur Utama</h2>
+    <p class="lead">Semua yang Anda butuhkan ada disini</p>
+    <div class="grid">
+      <article class="feature">
+        <div>⚡</div>
+        <h3>Cepat</h3>
+        <p>Kecepatan Up To 30 Mbps</p>
+      </article>
+      <article class="feature">
+        <div>📱</div>
+        <h3>Responsif</h3>
+        <p>Anti Lemot</p>
+      </article>
+      <article class="feature">
+        <div>🎯</div>
+        <h3>Mudah Dikustom</h3>
+        <p>Ubah nama dan password sesuka hati</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="kontak" class="container section">
+    <h2>Hubungi Kami</h2>
+    <p class="lead">Ada ide atau pertanyaan? Kirim pesan melalui formulir berikut.</p>
+    <form onsubmit="handleSubmit(event)">
+      <div>
+        <label for="nama">Nama</label>
+        <input id="nama" name="nama" placeholder="Nama Anda" required />
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="nama@email.com" required />
+      </div>
+      <div>
+        <label for="pesan">Pesan</label>
+        <textarea id="pesan" name="pesan" placeholder="Tulis pesan Anda..."></textarea>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <button class="btn" type="submit">Kirim</button>
+        <span id="status" aria-live="polite" style="font-size:14px; color:var(--muted);"></span>
+      </div>
+    </form>
+  </section>
+
+  <footer>
+    <div class="container">© <span id="copyrightYear"></span> Dibuat oleh Rizky Ilham Pratama</div>
+  </footer>
+
+  <script>
+    // Tahun otomatis
+    const y = new Date().getFullYear();
+    document.getElementById('year').textContent = y;
+    document.getElementById('copyrightYear').textContent = y;
+
+    // Demo counter kecil
+    let t = 0; const el = document.getElementById('counter');
+    const i = setInterval(() => { t += 16; el.textContent = t; if (t >= 128) clearInterval(i); }, 30);
+
+    // Toggle menu mobile
+    const btn = document.querySelector('.menu-btn');
+    const menu = document.getElementById('mobileMenu');
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', !open);
+    });
+
+    // Handler form sederhana (tanpa backend)
+    function handleSubmit(e){
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      const status = document.getElementById('status');
+      status.textContent = 'Mengirim...';
+      setTimeout(() => {
+        status.textContent = `Terima kasih, ${data.nama}! Pesan Anda sudah diterima.`;
+        e.target.reset();
+      }, 700);
+    }
+    window.handleSubmit = handleSubmit;
+  </script>
+</body>
+</html>
